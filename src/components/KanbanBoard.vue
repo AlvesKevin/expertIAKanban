@@ -344,6 +344,10 @@ const handleQuery = async () => {
       body: JSON.stringify({ query: userQuery.value })
     })
     
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json()
     
     // Mettre à jour l'explication et le tableau
@@ -353,6 +357,8 @@ const handleQuery = async () => {
     userQuery.value = '' // Réinitialiser le champ après l'envoi
   } catch (error) {
     console.error('Erreur lors de la requête:', error)
+    // Ajouter un message d'erreur plus descriptif pour l'utilisateur
+    explanation.value = "Une erreur s'est produite lors de la communication avec le serveur. Veuillez réessayer."
   } finally {
     isLoading.value = false
   }

@@ -7,10 +7,9 @@ const port = process.env.PORT || 3000;
 
 // Configuration CORS plus détaillée
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Utiliser la variable d'environnement
+  origin: 'http://localhost:5173', // Autoriser spécifiquement notre frontend
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-  credentials: true // Ajouter cette ligne si vous utilisez des cookies
+  allowedHeaders: ['Content-Type']
 }));
 
 app.use(express.json());
@@ -21,9 +20,9 @@ app.use((req, res, next) => {
   next();
 });
 
-const ollamaHost = process.env.OLLAMA_HOST || 'http://localhost:11434';
+// Simplification de la configuration Ollama
 const ollama = new Ollama({
-  host: ollamaHost
+  host: 'http://localhost:11434'
 });
 
 app.post('/api/query', async (req, res) => {
