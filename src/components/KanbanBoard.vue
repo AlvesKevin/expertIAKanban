@@ -11,50 +11,114 @@
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-4">Qu'est-ce que Kanban ?</h2>
           <div class="space-y-6 text-gray-600">
-            <p>
-              Kanban est une méthode de gestion visuelle du travail, issue des pratiques de production Toyota. Elle permet d'optimiser le flux de travail en visualisant les tâches et en limitant le travail en cours.
+            <p class="leading-relaxed">
+              Kanban est une méthode simple pour organiser votre travail. Elle vient de Toyota et aide à visualiser et gérer les tâches de manière efficace.
             </p>
-            <div>
-              <h3 class="text-lg font-medium text-gray-800 mb-2">Principes clés :</h3>
-              <ul class="space-y-2">
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                  <span>Visualiser le travail</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                  <span>Limiter le travail en cours</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                  <span>Gérer le flux</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                  <span>Rendre les règles explicites</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="text-lg font-medium text-gray-800 mb-2">Avantages :</h3>
-              <ul class="space-y-2">
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Amélioration de la productivité</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Réduction des goulots d'étranglement</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Meilleure visibilité du travail</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="w-2 h-2 rounded-full bg-pink-500 mt-2"></span>
-                  <span>Flexibilité accrue</span>
-                </li>
-              </ul>
+
+            <!-- Sections dépliables -->
+            <div class="space-y-4">
+              <!-- Comment ça marche -->
+              <div class="border border-gray-100 rounded-3xl overflow-hidden bg-white/50">
+                <button 
+                  @click="sections.howItWorks = !sections.howItWorks" 
+                  class="w-full px-4 py-3 flex justify-between items-center hover:bg-white/50 transition-colors duration-200"
+                >
+                  <span class="font-medium text-gray-800">Comment ça marche ?</span>
+                  <svg 
+                    :class="{'rotate-180': sections.howItWorks}" 
+                    class="w-5 h-5 text-gray-400 transform transition-transform duration-200" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div v-show="sections.howItWorks" class="px-4 pb-4 space-y-2">
+                  <p><span class="font-medium">Tableau visuel :</span> Imaginez un tableau divisé en colonnes. Chaque colonne représente une étape du travail (par exemple : « À faire », « En cours », « Terminé »).</p>
+                  <p><span class="font-medium">Déplacement des tâches :</span> Chaque tâche est représentée par une carte que vous déplacez de gauche à droite au fur et à mesure qu'elle progresse.</p>
+                  <p><span class="font-medium">Limitation des tâches :</span> On fixe un nombre maximum de tâches par colonne pour éviter d'être surchargé.</p>
+                  <p><span class="font-medium">Amélioration continue :</span> On mesure le temps nécessaire pour réaliser chaque tâche afin de trouver des moyens de faire mieux.</p>
+                </div>
+              </div>
+
+              <!-- Les principes clés -->
+              <div class="border border-gray-100 rounded-3xl overflow-hidden bg-white/50">
+                <button 
+                  @click="sections.principles = !sections.principles" 
+                  class="w-full px-4 py-3 flex justify-between items-center hover:bg-white/50 transition-colors duration-200"
+                >
+                  <span class="font-medium text-gray-800">Les principes clés</span>
+                  <svg 
+                    :class="{'rotate-180': sections.principles}" 
+                    class="w-5 h-5 text-gray-400 transform transition-transform duration-200" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div v-show="sections.principles" class="px-4 pb-4">
+                  <ul class="space-y-2">
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Visualiser le travail : Tout le monde peut voir ce qui se passe.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Limiter le travail en cours : Ne pas faire trop de tâches en même temps.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Gérer le flux : Faire avancer les tâches de manière régulière.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Rendre les règles explicites : Tout le monde sait comment travailler.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Les avantages -->
+              <div class="border border-gray-100 rounded-3xl overflow-hidden bg-white/50">
+                <button 
+                  @click="sections.benefits = !sections.benefits" 
+                  class="w-full px-4 py-3 flex justify-between items-center hover:bg-white/50 transition-colors duration-200"
+                >
+                  <span class="font-medium text-gray-800">Les avantages</span>
+                  <svg 
+                    :class="{'rotate-180': sections.benefits}" 
+                    class="w-5 h-5 text-gray-400 transform transition-transform duration-200" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div v-show="sections.benefits" class="px-4 pb-4">
+                  <ul class="space-y-2">
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Productivité améliorée : Le travail est mieux organisé et plus efficace.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Moins de blocages : Les problèmes sont identifiés rapidement.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Meilleure visibilité : Chacun sait où en est le travail.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="w-2 h-2 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mt-2"></span>
+                      <span>Flexibilité : Facile d'ajuster les priorités en fonction des besoins.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -159,8 +223,19 @@
                       @dragover.prevent
                       @drop="onDrop($event, column)"
                     >
-                      <h3 class="font-medium text-gray-800 group-hover:text-purple-600 transition-colors duration-200">{{ task.title }}</h3>
-                      <p class="text-sm text-gray-600 mt-1">{{ task.description }}</p>
+                      <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-medium text-gray-800 group-hover:text-purple-600 transition-colors duration-200">{{ task.title }}</h3>
+                        <div class="flex items-center gap-2">
+                          <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-medium shadow-sm">
+                            {{ task.assignee ? task.assignee.split(' ')[0][0] + task.assignee.split(' ')[1][0] : '?' }}
+                          </div>
+                        </div>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-2">{{ task.description }}</p>
+                      <div class="flex items-center gap-2 mt-2 pt-2 border-t border-gray-100">
+                        <span class="text-xs text-gray-500">Assigné à:</span>
+                        <span class="text-xs font-medium text-gray-700">{{ task.assignee || 'Non assigné' }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -179,6 +254,14 @@ import { ref, computed } from 'vue'
 const userQuery = ref('')
 const explanation = ref('')
 const isLoading = ref(false)
+
+// État des sections dépliables
+const sections = ref({
+  howItWorks: false,
+  principles: false,
+  benefits: false
+})
+
 const columns = ref([
   {
     id: 1,
@@ -253,7 +336,7 @@ const handleQuery = async () => {
 
   try {
     isLoading.value = true
-    const response = await fetch('http://localhost:3000/api/query', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/query`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -20,7 +20,10 @@ app.use((req, res, next) => {
   next();
 });
 
-const ollama = new Ollama();
+const ollamaHost = process.env.OLLAMA_HOST || 'http://localhost:11434';
+const ollama = new Ollama({
+  host: ollamaHost
+});
 
 app.post('/api/query', async (req, res) => {
   try {
@@ -28,27 +31,32 @@ app.post('/api/query', async (req, res) => {
     const { query } = req.body;
     
     const context = `Tu es un expert en méthodologie Kanban et gestion de projet Agile.
-    En réponse à la question, fournis UNIQUEMENT :
+    En réponse à la question, fournis :
 
-    1. Une brève explication.
+    1. Une explication détaillée mais accessible qui doit inclure :
+       - Le contexte spécifique de la situation
+       - Les avantages concrets de l'approche Kanban dans ce cas
+       - Des exemples pratiques et concrets
+       - Des conseils d'implémentation
 
-    2. Une liste simple de tâches réparties dans les trois colonnes suivantes (utilise EXACTEMENT ces titres) :
+    2. Une liste organisée de tâches réparties dans les trois colonnes suivantes (utilise EXACTEMENT ces titres) :
 
     À faire:
-    - [titre court de la tâche]: [brève description]
+    - [titre court de la tâche]: [description détaillée avec contexte et objectif]
 
     En cours:
-    - [titre court de la tâche]: [brève description]
+    - [titre court de la tâche]: [description détaillée avec contexte et objectif]
 
     Terminé:
-    - [titre court de la tâche]: [brève description]
+    - [titre court de la tâche]: [description détaillée avec contexte et objectif]
 
     IMPORTANT: 
-    - Chaque tâche doit avoir un titre court et une description brève
+    - Chaque tâche doit avoir un titre clair et une description détaillée mais concise
     - Utilise uniquement le format "- titre: description"
     - Ne mets pas de tableaux ou de formatage markdown
     - Pas de numérotation des tâches
     - Maximum 5 tâches par colonne
+    - Les descriptions doivent être concrètes et actionnables
 
     Question : ${query}`;
 
@@ -109,6 +117,16 @@ function processAIResponse(content) {
 function parseTasks(section) {
   if (!section) return [];
   
+  // Liste de noms pour l'assignation aléatoire
+  const teamMembers = [
+    'Sophie Martin',
+    'Thomas Bernard',
+    'Emma Dubois',
+    'Lucas Petit',
+    'Julie Moreau',
+    'Alexandre Simon'
+  ];
+  
   return section
     .split('\n')
     .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
@@ -117,13 +135,17 @@ function parseTasks(section) {
       const [title, ...descriptionParts] = taskText.split(':');
       const description = descriptionParts.join(':').trim() || '';
       
+      // Assigner aléatoirement un membre de l'équipe
+      const assignee = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+      
       return {
         id: `task-${Date.now()}-${index}`,
         title: title.trim(),
-        description
+        description,
+        assignee
       };
     })
-    .filter(task => task.title); // Filtrer les tâches vides
+    .filter(task => task.title);
 }
 
 app.listen(port, () => {
