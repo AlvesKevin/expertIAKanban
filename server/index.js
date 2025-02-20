@@ -7,9 +7,10 @@ const port = process.env.PORT || 3000;
 
 // Configuration CORS plus détaillée
 app.use(cors({
-  origin: 'http://localhost:5173', // Autoriser spécifiquement notre frontend
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Utiliser la variable d'environnement
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
+  allowedHeaders: ['Content-Type'],
+  credentials: true // Ajouter cette ligne si vous utilisez des cookies
 }));
 
 app.use(express.json());
