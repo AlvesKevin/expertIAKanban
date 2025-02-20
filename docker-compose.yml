@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
     ports:
-      - "80:80"
+      - "3001:80"
     depends_on:
       - backend
     networks:
@@ -17,16 +17,16 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     environment:
-      - PORT=3000
-    expose:
-      - "3000"
+      - PORT=3002
+    ports:
+      - "3002:3002"
     networks:
       - app-network
 
   ollama:
     image: ollama/ollama
     ports:
-      - "11434:11434"
+      - "11435:11434"
     volumes:
       - ollama_data:/root/.ollama
     networks:

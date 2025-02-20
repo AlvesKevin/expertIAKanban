@@ -3,11 +3,11 @@ import cors from 'cors';
 import { Ollama } from 'ollama';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 
 // Configuration CORS plus détaillée
 app.use(cors({
-  origin: 'http://localhost:5173', // Autoriser spécifiquement notre frontend
+  origin: 'http://62.72.18.21:3001', // Mise à jour pour correspondre au frontend
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
 // Simplification de la configuration Ollama
 const ollama = new Ollama({
-  host: 'http://localhost:11434'
+  host: 'http://ollama:11434' // Garde le port interne de Docker
 });
 
 app.post('/api/query', async (req, res) => {
